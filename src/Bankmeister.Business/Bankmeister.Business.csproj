@@ -15,7 +15,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Parsers\" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bankmeister.Models\Bankmeister.Models.csproj" />
+    <ProjectReference Include="..\Bankmeister.Services\Bankmeister.Services.csproj" />
   </ItemGroup>
 
 </Project>
