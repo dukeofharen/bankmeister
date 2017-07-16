@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Bankmeister.Business;
 using Bankmeister.Business.Parsers;
+using Bankmeister.Models.Enums;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bankmeister
@@ -16,6 +18,9 @@ namespace Bankmeister
             var arguments = new Dictionary<string, string> { { "path", @"C:\Users\Duco\Desktop\ing" } };
             var parser = provider.GetService<IngParser>();
             var mutations = parser.ParseMutations(arguments);
+
+            var reportModelCreator = provider.GetService<IReportModelCreator>();
+            var result = reportModelCreator.GetReportModels(mutations, PeriodType.Monthly);
         }
     }
 }
