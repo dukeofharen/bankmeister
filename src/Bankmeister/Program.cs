@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Bankmeister.Business;
+﻿using Bankmeister.Business;
+using Bankmeister.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bankmeister
@@ -12,6 +12,8 @@ namespace Bankmeister
             Business.DependencyRegistration.RegisterDependencies(serviceCollection);
             var provider = serviceCollection.BuildServiceProvider();
 
+            var argumentsDictionary = args.Parse();
+
             // TODO Test code, can be removed lateron
             // TODO Args parser
             // TODO Unit tests
@@ -19,17 +21,10 @@ namespace Bankmeister
             // TODO StyleCop check
             // TODO ReSharper check
             // TODO CodeMaid cleanup
-            var arguments = new Dictionary<string, string>
-            {
-                { "path", @"C:\Users\Duco\Desktop\ing" },
-                { "bank", "ing" },
-                { "periodType", "yearly" },
-                { "beginAmount", "0" },
-                { "generator", "excel" },
-                { "outputDirectory", @"C:\Users\Duco\Desktop\ing\output" }
-            };
+            // TODO Exception handling and logging
+            // TODO Help page for command line
             var generator = provider.GetService<IReportManager>();
-            generator.GenerateReport(arguments);
+            generator.GenerateReport(argumentsDictionary);
         }
     }
 }
