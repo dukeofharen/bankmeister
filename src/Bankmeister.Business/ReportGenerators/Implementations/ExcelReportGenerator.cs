@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using Bankmeister.Models;
 using OfficeOpenXml;
 
@@ -9,6 +11,8 @@ namespace Bankmeister.Business.ReportGenerators.Implementations
     public class ExcelReportGenerator : IReportGenerator
     {
         private const string DecimalFormat = "0.##";
+        private const string DateFormat = "yyyy-mm-dd";
+        private const string DateTimeFormat = "yyyy-mm-dd HH:MM:ss";
         // TODO Make currency configurable
         private const string CurrencyFormat = "€ ###,###,##0.00";
 
@@ -22,8 +26,6 @@ namespace Bankmeister.Business.ReportGenerators.Implementations
             {
                 // TODO Strings in resource file
                 // TODO Copyright on overview page
-                // TODO Frequencies sheet
-                // TODO Total number of mutations on overview page
                 WriteOverviewSheet(package, reportModel);
                 WriteMutationsSheet(package, reportModel);
                 WriteRecordHoldersUpSheet(package, reportModel);
@@ -38,8 +40,8 @@ namespace Bankmeister.Business.ReportGenerators.Implementations
         {
             var sheet = package.Workbook.Worksheets.Add("Overview");
 
-            sheet.Column(1).Width = 15;
-            sheet.Column(2).Width = 15;
+            sheet.Column(1).Width = 20;
+            sheet.Column(2).Width = 20;
 
             ExcelRangeBase range;
 
@@ -74,6 +76,19 @@ namespace Bankmeister.Business.ReportGenerators.Implementations
             range = sheet.Cells[5, 2];
             range.Value = model.TotalDown;
             range.Style.Numberformat.Format = CurrencyFormat;
+
+            range = sheet.Cells[6, 1];
+            range.Value = "Number of mutations";
+
+            range = sheet.Cells[6, 2];
+            range.Value = model.Mutations.Count();
+
+            range = sheet.Cells[7, 1];
+            range.Value = "Report generated on";
+
+            range = sheet.Cells[7, 2];
+            range.Value = DateTime.Now;
+            range.Style.Numberformat.Format = DateTimeFormat;
         }
 
         private static void WriteMutationsSheet(ExcelPackage package, ReportModel model)
@@ -101,7 +116,7 @@ namespace Bankmeister.Business.ReportGenerators.Implementations
 
                 range = sheet.Cells[counter, 1];
                 range.Value = mutation.DateTime;
-                range.Style.Numberformat.Format = "yyyy-mm-dd";
+                range.Style.Numberformat.Format = DateFormat;
 
                 range = sheet.Cells[counter, 2];
                 range.Value = mutation.Name;

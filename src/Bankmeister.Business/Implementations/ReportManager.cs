@@ -106,6 +106,8 @@ namespace Bankmeister.Business.Implementations
                     return PeriodType.Monthly;
                 case "yearly":
                     return PeriodType.Yearly;
+                case "everything":
+                    return PeriodType.Everything;
                 default:
                     throw new InvalidOperationException($"No period type found with name '{input}'.");
             }
