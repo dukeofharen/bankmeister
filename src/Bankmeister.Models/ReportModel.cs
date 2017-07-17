@@ -17,7 +17,9 @@ namespace Bankmeister.Models
 
         public double EndAmount { get; set; }
 
-        public IEnumerable<NameAmountModel> NameAmountGroups { get; set; }
+        public IEnumerable<RecordHolderModel> RecordHoldersUp { get; set; }
+
+        public IEnumerable<RecordHolderModel> RecordHoldersDown { get; set; }
 
         public IEnumerable<MutationModel> Mutations { get; set; }
 

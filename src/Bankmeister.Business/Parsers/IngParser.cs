@@ -21,6 +21,8 @@ namespace Bankmeister.Business.Parsers
             _fileService = fileService;
         }
 
+        public string Key => "ing";
+
         public IEnumerable<MutationModel> ParseMutations(IDictionary<string, string> arguments)
         {
             var result = new List<MutationModel>();
@@ -30,9 +32,9 @@ namespace Bankmeister.Business.Parsers
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            if (!arguments.TryGetValue(ParserConstants.PathArgumentName, out string path))
+            if (!arguments.TryGetValue(Constants.PathArgumentName, out string path))
             {
-                throw new ArgumentException($"Argument not set: {ParserConstants.PathArgumentName}");
+                throw new ArgumentException($"Argument not set: {Constants.PathArgumentName}");
             }
 
             var files = _fileService.GetFiles(path, $"*.{FileExtension}");

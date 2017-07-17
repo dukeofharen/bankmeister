@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bankmeister.Models;
 using Bankmeister.Models.Enums;
@@ -48,7 +49,8 @@ namespace Bankmeister.Business.Implementations
                     StartAmount = startAmountPointer,
                     EndAmount = endAmount,
                     AmountFrequencies = GetAmountFrequencies(filteredMutations),
-                    NameAmountGroups = GetNameAmountModels(filteredMutations)
+                    RecordHoldersUp = GetNameAmountModels(filteredMutations, true),
+                    RecordHoldersDown = GetNameAmountModels(filteredMutations, false)
                 });
 
                 startAmountPointer = endAmount;
@@ -84,18 +86,27 @@ namespace Bankmeister.Business.Implementations
                 FrequencyDown = mutations.Count(m => -m.Amount >= from && (to == null || -m.Amount < to)),
                 FrequencyUp = mutations.Count(m => m.Amount >= from && (to == null || m.Amount < to))
             };
-            
+
         }
 
-        private static IEnumerable<NameAmountModel> GetNameAmountModels(MutationModel[] mutations)
+        private static IEnumerable<RecordHolderModel> GetNameAmountModels(MutationModel[] mutations, bool up)
         {
             var groups = mutations
+                .Where(m => up ? m.Amount >= 0 : m.Amount < 0)
                 .GroupBy(m => m.Name);
             return groups
-                .Select(g => new NameAmountModel
+                .Select(g =>
                 {
-                    Amount = g.Sum(m => m.Amount),
-                    Name = g.Key
+                    double sum = Math.Abs(g.Sum(m => m.Amount));
+                    int frequency = g.Count();
+                    var model = new RecordHolderModel
+                    {
+                        Amount = sum,
+                        Name = g.Key,
+                        Frequency = frequency,
+                        AverageAmount = sum / frequency
+                    };
+                    return model;
                 })
                 .OrderByDescending(m => m.Amount)
                 .ToArray();

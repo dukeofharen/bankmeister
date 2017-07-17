@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Bankmeister.Business;
-using Bankmeister.Business.Parsers;
-using Bankmeister.Models.Enums;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bankmeister
@@ -14,13 +12,26 @@ namespace Bankmeister
             Business.DependencyRegistration.RegisterDependencies(serviceCollection);
             var provider = serviceCollection.BuildServiceProvider();
 
-            // Test code, can be removed lateron
-            var arguments = new Dictionary<string, string> { { "path", @"C:\Users\Duco\Desktop\ing" } };
-            var parser = provider.GetService<IngParser>();
-            var mutations = parser.ParseMutations(arguments);
-
-            var reportModelCreator = provider.GetService<IReportModelCreator>();
-            var result = reportModelCreator.GetReportModels(mutations, PeriodType.Monthly);
+            // TODO Test code, can be removed lateron
+            // TODO Args parser
+            // TODO Unit tests
+            // TODO in-memory integration test
+            // TODO HTML report generator
+            // TODO PDF report generator
+            // TODO StyleCop check
+            // TODO ReSharper check
+            // TODO CodeMaid cleanup
+            var arguments = new Dictionary<string, string>
+            {
+                { "path", @"C:\Users\Duco\Desktop\ing" },
+                { "bank", "ing" },
+                { "periodType", "yearly" },
+                { "beginAmount", "0" },
+                { "generator", "excel" },
+                { "outputDirectory", @"C:\Users\Duco\Desktop\ing\output" }
+            };
+            var generator = provider.GetService<IReportManager>();
+            generator.GenerateReport(arguments);
         }
     }
 }
