@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Bankmeister.Business.ReportGenerators.Implementations
 {
-    public class ReportGeneratorFactory : IReportGeneratorFactory
+    internal class ReportGeneratorFactory : IReportGeneratorFactory
     {
         private readonly IServiceProvider _serviceProvider;
 

@@ -16,8 +16,6 @@ namespace Bankmeister
             // TODO Args parser
             // TODO Unit tests
             // TODO in-memory integration test
-            // TODO HTML report generator
-            // TODO PDF report generator
             // TODO StyleCop check
             // TODO ReSharper check
             // TODO CodeMaid cleanup

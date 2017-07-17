@@ -4,7 +4,7 @@ using CsvHelper;
 
 namespace Bankmeister.Services.Implementations
 {
-    public class CsvService : ICsvService
+    internal class CsvService : ICsvService
     {
         public IEnumerable<string[]> ParseCsvRows(string csv)
         {

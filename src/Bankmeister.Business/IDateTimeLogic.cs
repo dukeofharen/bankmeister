@@ -5,7 +5,6 @@ using Bankmeister.Models.Enums;
 
 namespace Bankmeister.Business
 {
-    // TODO implementations internal
     public interface IDateTimeLogic
     {
         IEnumerable<DateTimeFromToModel> CalculateDateTimeRanges(PeriodType periodType, DateTime beginDateTime, DateTime endDateTime);

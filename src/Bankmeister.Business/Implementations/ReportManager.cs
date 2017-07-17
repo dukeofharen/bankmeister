@@ -8,7 +8,7 @@ using Bankmeister.Services;
 
 namespace Bankmeister.Business.Implementations
 {
-    public class ReportManager : IReportManager
+    internal class ReportManager : IReportManager
     {
         private readonly IReportModelCreator _reportModelCreator;
         private readonly IParserFactory _parserFactory;

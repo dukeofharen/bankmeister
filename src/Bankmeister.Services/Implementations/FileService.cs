@@ -2,7 +2,7 @@
 
 namespace Bankmeister.Services.Implementations
 {
-    public class FileService : IFileService
+    internal class FileService : IFileService
     {
         public string ReadAllText(string path)
         {

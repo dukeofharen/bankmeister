@@ -8,7 +8,7 @@ using OfficeOpenXml;
 
 namespace Bankmeister.Business.ReportGenerators.Implementations
 {
-    public class ExcelReportGenerator : IReportGenerator
+    internal class ExcelReportGenerator : IReportGenerator
     {
         private const string DecimalFormat = "0.##";
         private const string DateFormat = "yyyy-mm-dd";
@@ -25,7 +25,6 @@ namespace Bankmeister.Business.ReportGenerators.Implementations
             using (var package = new ExcelPackage())
             {
                 // TODO Strings in resource file
-                // TODO Copyright on overview page
                 WriteOverviewSheet(package, reportModel);
                 WriteMutationsSheet(package, reportModel);
                 WriteRecordHoldersUpSheet(package, reportModel);

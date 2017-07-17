@@ -7,7 +7,7 @@ using Bankmeister.Services;
 
 namespace Bankmeister.Business.Parsers
 {
-    public class IngParser : IParser
+    internal class IngParser : IParser
     {
         private const string FileExtension = "csv";
         private readonly ICsvService _csvService;

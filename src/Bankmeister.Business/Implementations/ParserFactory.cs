@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Bankmeister.Business.Implementations
 {
-    public class ParserFactory : IParserFactory
+    internal class ParserFactory : IParserFactory
     {
         private readonly IServiceProvider _serviceProvider;
 

@@ -6,7 +6,7 @@ using Bankmeister.Models.Enums;
 
 namespace Bankmeister.Business.Implementations
 {
-    public class ReportModelCreator : IReportModelCreator
+    internal class ReportModelCreator : IReportModelCreator
     {
         private readonly IDateTimeLogic _reportLogic;
 
